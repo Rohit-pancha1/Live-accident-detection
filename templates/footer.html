@@ -1,0 +1,34 @@
+
+<footer>
+  <div class="contact"></div>
+  <div class="copyright">
+    ALCHEMIST TREASURE © AI module of accident detection 2024. <a href=""> Contact us : 7846006663</a>
+  </div>
+  
+</footer>
+{% if user %}
+  {% if user.role == 'admin' %}
+  <script>
+      const eventSource = new EventSource("/notifications");
+      eventSource.onmessage = function(event) {
+          const data = JSON.parse(event.data);
+          alert(`Accident Detected: ${data.description} at ${data.location}`);
+          window.location.href = "/accident_detection";
+      };
+  </script>
+  {% endif %}
+{% endif %}
+
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "10e37087-4989-42de-8081-f66085152215", // The ID of this integration.
+    region: "au-syd", // The region your integration is hosted in.
+    serviceInstanceID: "1ca9f2a2-738d-4c52-ac9c-83e40d684511", // The ID of your service instance.
+    onLoad: async (instance) => { await instance.render(); }
+  };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
